@@ -4,16 +4,16 @@ const increment = createAction("INCREMENT");
 const decrement = createAction("DECREMENT");
 
 const initialState = {
-  value: 0
+  value: 0,
 };
 
-const reducer = createReducer(initialState, {
-  [increment.type]: state => {
+const reducer = createReducer(initialState, (builder) => {
+  builder.addCase(increment, (state) => {
     state.value = state.value + 1;
-  },
-  [decrement.type]: state => {
+  });
+  builder.addCase(decrement, (state) => {
     state.value = state.value - 1;
-  }
+  });
 });
 
 export { increment, decrement };
