@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { increment, decrement } from "../features/counter/counter";
-import { increment, decrement } from "../features/counter/counterSlice";
+import { increment, decrement } from "../features/counter/counter";
+// import { increment, decrement } from "../features/counter/counterSlice";
 import { Box, Card, Heading, Button, Flex } from "rebass";
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
               p: 1,
               borderRadius: 2,
               boxShadow: "0 0 16px rgba(0, 0, 0, .25)",
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             <Box px={2}>
@@ -38,8 +38,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  value: state.value
+const mapStateToProps = (state) => ({
+  value: state.value,
 });
 
 const mapDispatchToProps = { increment, decrement };
