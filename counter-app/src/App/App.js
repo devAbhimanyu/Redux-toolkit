@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useDispatch,useSelector } from "react-redux";
 import { increment, decrement } from "../features/counter/counterSlice";
 import { Box, Card, Heading, Button, Flex } from "rebass";
 
-class App extends Component {
-  render() {
+const App = ()=> {
+    const dispatch = useDispatch();
+    const {value} = useSelector(state=>state)
     return (
       <Flex justifyContent={"center"}>
         <Box width={256} mt={10}>
@@ -17,16 +18,16 @@ class App extends Component {
             }}
           >
             <Box px={2}>
-              <Heading as="h1">{this.props.value}</Heading>
+              <Heading as="h1">{value}</Heading>
               <Button
                 sx={{ color: "#000" }}
                 variant="primary"
                 mr={2}
-                onClick={this.props.increment}
+                onClick={()=>dispatch(increment())}
               >
                 add
               </Button>
-              <Button sx={{ color: "#000" }} onClick={this.props.decrement}>
+              <Button sx={{ color: "#000" }} onClick={()=>dispatch(decrement())}>
                 decre
               </Button>
             </Box>
@@ -34,12 +35,6 @@ class App extends Component {
         </Box>
       </Flex>
     );
-  }
 }
 
-const mapStateToProps = (state) => ({
-  value: state.value,
-});
-
-const mapDispatchToProps = { increment, decrement };
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
