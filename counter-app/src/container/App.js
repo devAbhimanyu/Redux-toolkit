@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { increment, decrement } from "../features/counter/counter";
-// import { increment, decrement } from "../features/counter/counterSlice";
+import { increment, decrement } from "../features/counter/counterSlice";
 import { Box, Card, Heading, Button, Flex } from "rebass";
 
 class App extends Component {
