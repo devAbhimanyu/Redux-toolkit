@@ -8,7 +8,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //retieving posts
-const todos = [];
+const todos = [
+  {
+    itemId: randomBytes(4).toString("hex"),
+    task: "Add/update the task",
+    completed: false
+  },
+];
 
 //retieving posts
 app.get("/todoList", (req, res) => {
@@ -25,6 +31,10 @@ app.post("/todo", (req, res) => {
 
   res.status(201).send(todos);
 });
+
+app.patch('todo',(req,res)=>{
+  const { todo } = req.body;
+})
 
 app.listen(4000, () => {
   console.log("post service listening at 4000");

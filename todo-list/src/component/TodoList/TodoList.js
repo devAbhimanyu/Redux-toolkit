@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { updateList } from "../../features/todo/todoSlice";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateList, fetchToDoList } from "../../features/todo/todoSlice";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,27 +8,33 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "400px",
     backgroundColor: theme.palette.background.paper,
-    margin: "auto"
+    margin: "auto",
   },
   strike: {
-    textDecoration: "line-through;"
-  }
+    textDecoration: "line-through;",
+  },
 }));
 
-const ToDoList = props => {
+const ToDoList = (props) => {
   const classes = useStyles();
+  const { todoList } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-  const handleToggle = value => () => {
+  const handleToggle = (value) => () => {
     props.updateList({
-      itemIndex: value
+      itemIndex: value,
     });
   };
 
-  const listItems = props.todo.list.map(item => {
+  useEffect(() => {
+    todoList.length === 0 && dispatch(fetchToDoList());
+  }, [dispatch, todoList]);
+
+  const listItems = todoList.map((item) => {
     const listItemText = item.completed ? (
       <ListItemText
         id={labelId}
@@ -59,9 +65,5 @@ const ToDoList = props => {
     </List>
   );
 };
-const mapStateToProps = state => ({
-  todo: state
-});
 
-const mapDispatchToProps = { updateList };
-export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);
+export default ToDoList;
