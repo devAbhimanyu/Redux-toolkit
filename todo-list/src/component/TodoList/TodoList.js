@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateList, fetchToDoList } from "../../features/todo/todoSlice";
+import { fetchToDoList, updateToDo } from "../../features/todo/todoSlice";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -24,10 +24,10 @@ const ToDoList = (props) => {
   const { todoList } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const handleToggle = (value) => () => {
-    props.updateList({
-      itemIndex: value,
-    });
+  const handleToggle = (todo) => {
+    const tdCopy = { ...todo };
+    tdCopy.completed = !todo.completed;
+    dispatch(updateToDo(tdCopy));
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const ToDoList = (props) => {
         <ListItemSecondaryAction>
           <Checkbox
             edge="end"
-            onChange={handleToggle(item.itemId)}
+            onChange={() => handleToggle(item)}
             checked={item.completed}
             inputProps={{ "aria-labelledby": labelId }}
           />

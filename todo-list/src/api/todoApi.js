@@ -9,7 +9,12 @@ export const getList = async () => {
   return data;
 };
 
-export const addNewTodo = async (item) => {
-  const { data } = await instance.post("/todo", item);
+export const addTodo = async (todo) => {
+  const { data } = await instance.post("/todo", { todo });
+  return data;
+};
+
+export const updateTodo = async (todo) => {
+  const { data } = await instance.patch("/todo", { todo });
   return data;
 };
